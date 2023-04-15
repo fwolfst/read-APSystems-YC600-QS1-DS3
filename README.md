@@ -1,3 +1,12 @@
+# ESP-ECU
+
+## ABout this project
+
+This project is a fork of `patience4711` awesome
+[read-APSystems-YC600-QS1-DS3](https://github.com/patience4711/read-APSystems-YC600-QS1-DS3).
+
+It compiles under Linux.
+
 # read APS inverters
 This project is for reading APS Systems inverters. The program can pair and poll YC600 QS1 and DS3 inverters, up to 9 pieces. The read values are displayed on a web page and sent via mosquitto in a Json format.
 The program has a lot of smart features. All settings can be done via the webinterface. It has a console that can be used for debugging and sending/receiving zigbee messages.<br>

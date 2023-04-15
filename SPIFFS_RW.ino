@@ -151,7 +151,10 @@ void mqttConfigsave() {
 
 bool file_open_for_read(String bestand) {
       //DebugPrint("we are in file_open_for_read, bestand = "); //DebugPrintln(bestand); 
-      if (LittleFS.exists(bestand)) {
+      if (! LittleFS.exists(bestand)) {
+        return false;
+      }
+
       //file exists, reading and loading
       //DebugPrintln("bestand bestaat");
         File configFile = LittleFS.open(bestand, "r");
@@ -209,7 +212,7 @@ bool file_open_for_read(String bestand) {
             return false;
            }
        }
-   }
+  return false;
 }
 // we do this before swap_to_zigbee
 void printStruct( String bestand ) {

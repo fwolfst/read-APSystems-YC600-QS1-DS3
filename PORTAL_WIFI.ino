@@ -262,9 +262,7 @@ void eraseStatic(AsyncWebServerRequest *request) {
 //                  P O R T A L  H E L P F U N C T I O N S
 // **************************************************************************************
 
-//**********************************************************************
-//      try to connect
-// **********************************************************************
+/** try to connect to WIFI */
 bool wifiConnect() {
   // we are here because bool tryConnectFlag was true in the loop
       digitalWrite(led_onb, LED_UIT);

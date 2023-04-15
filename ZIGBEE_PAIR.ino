@@ -4,7 +4,7 @@ void pairOnActionflag() {
    
    String term = "start pairing inverter sn " + String(Inv_Prop[iKeuze].invSerial);
    Update_Log("pairing", term);
-    if( !coordinator_init() ) {
+    if( !coordinator(false) ) {
       term="pairing failed, zb system down";
       Update_Log("pairing", term);
       ws.textAll(term);

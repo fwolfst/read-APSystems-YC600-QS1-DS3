@@ -20,7 +20,8 @@ bool coordinator(bool normal) { // if true we send the extra command for normal 
     }
 }
 
-bool coordinator_init() {
+/** Sends initialization commands to zb module. */
+void coordinator_init() {
 ws.textAll("init zb coordinator");
 zigbeeUp = 11; //initial it is initializing 11, 0=down 1=up
 yield();

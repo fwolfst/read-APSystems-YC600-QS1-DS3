@@ -7,6 +7,22 @@ This project is a fork of `patience4711` awesome
 
 It compiles under Linux.
 
+### Changes made (see commit history)
+
+- use lowercase `.h` for header files to allow compilation with Arduino IDE in
+  Linux
+- renamed the main `.ino` file into `ESP-ECU.ino`, such that Arduino IDE can
+  easily work with these files as a sketch.
+
+### Notes
+
+- If you use a CC2350 with a CC2591 range extender, use the respective firmware
+  (the `CC2350...hex` without range extender will not work)
+- Wemos/LOLIN D1 R1 does not work out of the box (NodeMCU v3.4 does)
+- Despite different information, you can use [flash_cc3531](https://github.com/jmichault/flash_cc2531) with default pins on a Raspberry Pi 2 B.
+- The [`sunMoon`](https://github.com/sfrwmaker/sunMoon) library needs to be
+  installed via zip file into Arduino IDE
+
 # read APS inverters
 This project is for reading APS Systems inverters. The program can pair and poll YC600 QS1 and DS3 inverters, up to 9 pieces. The read values are displayed on a web page and sent via mosquitto in a Json format.
 The program has a lot of smart features. All settings can be done via the webinterface. It has a console that can be used for debugging and sending/receiving zigbee messages.<br>

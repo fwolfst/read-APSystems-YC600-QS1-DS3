@@ -281,10 +281,12 @@ bool wifiConnect() {
          Serial.println("yoepy, connected");
          ledblink(3, 500);
          event=101;
+  return true;
        } else {
          Serial.println("could not connect, try again");
          digitalWrite(led_onb, LED_AAN); // 
          event=100;
+  return false;
         } 
  }
 

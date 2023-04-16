@@ -180,7 +180,7 @@ ws.textAll("the resetCmd = " + String(resetCmd));
 // calculate length 
 strcpy(resetCmd, strncat(sLen(resetCmd), resetCmd, sizeof(sLen(resetCmd)) + sizeof(resetCmd))); //build command plus sln at the beginning
 // put in the CRC at the end of the command
-strcpy(resetCmd, strncat(resetCmd, checkSum(resetCmd), sizeof(resetCmd) + sizeof(checkSum(resetCmd))));
+APPEND_CRC(resetCmd);
 
 ////commented out while testing
 //swap_to_zb(); // set serial to the cc2530

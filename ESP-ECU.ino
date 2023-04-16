@@ -32,6 +32,7 @@ DNSServer dnsServer;
 #include "PORTAL_HTML.h"
 //#include "AAA_HOMEPAGE.H"
 
+#include "zigbee.h"
 
 /*
  * if we define TEST we have a special environment to test the decoding of a string

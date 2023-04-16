@@ -73,7 +73,7 @@ DebugPrint("len of txBuffer :  "); DebugPrintln(String(txBuffer));
        //len at the begin
        strcpy(sendCmd, strncat(sLen(sendCmd), sendCmd, sizeof(sLen(sendCmd)) + sizeof(sendCmd))); //build command plus sln at the beginning
        // CRC at the end 
-       strcpy(sendCmd, strncat(sendCmd, checkSum(sendCmd), sizeof(sendCmd) + sizeof(checkSum(sendCmd))));
+       APPEND_CRC(sendCmd);
        ws.textAll("sendCmd = FE" + String(sendCmd));
        //now we send this command
        #ifdef DEBUG

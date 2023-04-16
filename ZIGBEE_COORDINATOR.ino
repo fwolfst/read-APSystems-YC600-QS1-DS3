@@ -96,7 +96,7 @@ delayMicroseconds(250);
       strcpy(initCmd, strncat(sLen(initCmd), initCmd, sizeof(sLen(initCmd)) + sizeof(initCmd))); 
       delayMicroseconds(250);
       // CRC at the end of the command
-      strcpy(initCmd, strncat(initCmd, checkSum(initCmd), sizeof(initCmd) + sizeof(checkSum(initCmd))));
+      APPEND_CRC(initCmd);
       delayMicroseconds(250);
       //ws.textAll("zb send cmd " + String(y));
           #ifdef DEBUG
@@ -152,7 +152,7 @@ void sendNO() {
     strcpy(initCmd, strncat(sLen(initCmd), initCmd, sizeof(sLen(initCmd)) + sizeof(initCmd))); 
     delayMicroseconds(250);
     // put in the CRC at the end of the command
-    strcpy(initCmd, strncat(initCmd, checkSum(initCmd), sizeof(initCmd) + sizeof(checkSum(initCmd))));
+    APPEND_CRC(initCmd);
     delayMicroseconds(250);
     // send and read
 //    if(Log) Update_Log("zb-out",initCmd);

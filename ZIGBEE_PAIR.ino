@@ -130,7 +130,7 @@ strncat(pairBaseCommand[5], ecu_id_reverse, sizeof(ecu_id_reverse));
       strcpy(pairCmd, strncat(sLen(pairCmd), pairCmd, sizeof(sLen(pairCmd)) + sizeof(pairCmd))); 
       delayMicroseconds(250);
       // add CRC at the end 
-      strcpy(pairCmd, strncat(pairCmd, checkSum(pairCmd), sizeof(pairCmd) + sizeof(checkSum(pairCmd))));
+      APPEND_CRC(pairCmd);
       delayMicroseconds(250);
       // send and read
       if(diagNose)ws.textAll("pair command = " + String(pairCmd));      

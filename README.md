@@ -13,6 +13,8 @@ It compiles under Linux.
   Linux
 - renamed the main `.ino` file into `ESP-ECU.ino`, such that Arduino IDE can
   easily work with these files as a sketch.
+- removed a couple of unused variables and changed return values in response to
+  compiler warnings.
 
 ### Notes
 

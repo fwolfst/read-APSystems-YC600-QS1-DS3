@@ -57,10 +57,7 @@ void start_portal() {
   }
   yield();
   if (tryConnectFlag) { // there are credentials provided
-      if (wifiConnect())  {
-        // if true we are connected else not
-        }  else {
-        } // what to do now
+      wifiConnect();
    // we try to connect once so make the  flag false
    // tryConnectFlag = false; is done in wifiConnect   
   }
@@ -263,7 +260,7 @@ void eraseStatic(AsyncWebServerRequest *request) {
 // **************************************************************************************
 
 /** try to connect to WIFI */
-bool wifiConnect() {
+void wifiConnect() {
   // we are here because bool tryConnectFlag was true in the loop
       digitalWrite(led_onb, LED_UIT);
        tryConnectFlag=false;
@@ -281,12 +278,10 @@ bool wifiConnect() {
          Serial.println("yoepy, connected");
          ledblink(3, 500);
          event=101;
-  return true;
        } else {
          Serial.println("could not connect, try again");
          digitalWrite(led_onb, LED_AAN); // 
          event=100;
-  return false;
         } 
  }
 

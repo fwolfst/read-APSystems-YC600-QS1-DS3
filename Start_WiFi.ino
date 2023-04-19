@@ -7,10 +7,9 @@ void start_wifi() {
  WiFi.mode(WIFI_STA);
  WiFi.hostname("ECU");
 
- WiFi.mode(WIFI_STA); // geen ap op dit moment 
+ WiFi.mode(WIFI_STA); // Not AP mode anymore
 
-// we gaan 10 pogingen doen om te verbinden
-// met de laatst gebruikte credentials
+// Will try ten times with the credentials
   while (WiFi.status() != WL_CONNECTED) {
      delay(500);
      //Serial.print("*");

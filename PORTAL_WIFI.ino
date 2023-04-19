@@ -276,7 +276,7 @@ void wifiConnect() {
       //Serial.println("Connecting to " + String(ssid));
       //Serial.println(F("password =  " + String(pass)));
 
-      if (connectWifi() == 1) {
+      if (connectWifi()) {
          Serial.println("yoepy, connected");
          ledblink(3, 500);
          event=101;
@@ -290,8 +290,7 @@ void wifiConnect() {
 // ************************************************************************
 //          try to connect with new credentials
 // ************************************************************************
-
-int connectWifi() {  
+bool connectWifi() {
   //DebugPrintln("trying to connect with the new credentials");
  // WiFi.disconnect(true);
   if (ssid != "") {
@@ -318,7 +317,7 @@ int connectWifi() {
      delay(500);
      //Serial.print("*");
      connectAttempts += 1;
-     if (connectAttempts==10) {break;}
+     if (connectAttempts == 10) {break;}
   }
    //Serial.println(F("\nwe are out of  the for=loop, event = " + String(event) ));
 
@@ -326,10 +325,10 @@ int connectWifi() {
       //DebugPrint ("Connected : ");
       //DebugPrintln(WiFi.localIP());
       checkFixed(); // set static ip if configured
-      return 1;
+      return true;
    } else {
      //DebugPrint ("NOT Connected : ");
-     return 0;
+     return false;
    }
 }
 

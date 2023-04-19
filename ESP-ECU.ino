@@ -145,7 +145,6 @@ String  Mqtt_Username;
 String  Mqtt_Password;
 String  Mqtt_Port =     "1883";
 int     Mqtt_Format = 0;  
-int event = 0;
 
   int dst;
   int iKeuze;

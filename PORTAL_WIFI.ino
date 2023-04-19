@@ -13,6 +13,8 @@ public:
   }
 };
 
+uint8_t event = 0;
+
 void start_portal() {
 //  swap_to_Usb();
   IPAddress apIP(192, 168, 4, 1);

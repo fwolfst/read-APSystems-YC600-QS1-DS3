@@ -2,6 +2,7 @@
 // *                        START wifi
 // ************************************************************************************
 void start_wifi() {
+  uint8_t tries = 0;
  WiFi.softAPdisconnect(true);
  WiFi.mode(WIFI_STA);
  WiFi.hostname("ECU");
@@ -13,17 +14,17 @@ void start_wifi() {
   while (WiFi.status() != WL_CONNECTED) {
      delay(500);
      //Serial.print("*");
-     event+=1;
-     if (event==10) {break;}
+     tries += 1;
+     if (tries == 10) {break;}
   }
-// als het verbinden is mislukt gaan we naar het configportal  
-  if (event>9) {
-     event=0;
+// Go to configportal if connection failed
+  if (tries > 9) {
+     //tries = 0;
 
-     start_portal(); // stel het portal in
+     start_portal();
      }
 //Serial.print(F("# connection attempts = "));  //Serial.println(event);
-event=0; // we kunnen door naar de rest
+//event=0; // we kunnen door naar de rest
 checkFixed();
   
   start_asyserver();

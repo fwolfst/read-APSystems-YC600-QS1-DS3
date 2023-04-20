@@ -1,5 +1,14 @@
-
-#define VERSION  "ESP-ECU_v9_8"
+/* implementation of the improvements from felix:
+ *  the uppercase function in crc snd len
+ *  the bool coordinatorinit changed in void
+ *  the bool connectWifi canged in void
+ *  the returns in bool file_open_for_read rearranged
+ *  crc addition only in sendZigbee
+ *  the original bin filesize = 480kb
+ *  after using implementation of zigbee.h and appendcrc in sendZigbee 479 
+ */
+// arduino version 2.7.1 
+#define VERSION  "ESP-ECU_v9_9a"
 
 #include <TimeLib.h>
 #include <time.h>
@@ -239,7 +248,7 @@ void setup() {
 
   if ( Mqtt_Format != 0 ) 
   {
-       Serial.println("setup: mqtt configure");
+       Serial.println(F("setup: mqtt configure"));
        mqttConnect(); // mqtt connect
   } 
   else 
@@ -249,10 +258,10 @@ void setup() {
   initWebSocket();
     
   DebugPrintln("ATTENTION DEBUG DEFINED");
-  Serial.println("booted up, checking coordinator");
+  Serial.println(F("booted up, checking coordinator"));
   Serial.println(WiFi.localIP());
   #ifndef DEBUG 
-  Serial.println("swapping serial to zb, goodbye");
+  Serial.println(F("swapping serial to zb, goodbye"));
   swap_to_zb(); // permanent zigbee serial 
   #endif
   delay(1000);
@@ -352,8 +361,19 @@ void loop() {
    {
          lastCheck += 1000UL * 600;
          //we dont do healtcheck when stopped
-         healthCheck(); // checks zb radio, mqtt and time, when false only message if error
+         healthCheck(); // checks zb radio and time.
    }
+//// ******************************************************************
+////              healthcheck every 60 minutes
+//// ******************************************************************
+//   nu = millis() + 1000ul*3720; // 2 minutes later // must be one hour + 2 minutes = 
+//   if (nu - lastCheck >= 1000UL * 3600) // was 600=10min*6=3600
+//   {
+//         lastCheck += 1000UL * 3600;
+//         //we don't do healtcheck when stopped
+//         healthCheck(); // checks zb radio, mqtt and time, when false only message if error
+//   }
+
 #endif
 
   // we recalcultate the switchtimes for this day when there is a new date
@@ -365,6 +385,7 @@ void loop() {
   }
  
   //check mqtt is connected when it should
+  //when the coordinator is started the mqtt connection times out
   if(Mqtt_Format != 0) 
   {
    if(!MQTT_Client.loop()) mqttConnect();
@@ -380,9 +401,9 @@ void loop() {
         resetValues(true, true); //set all values to zero and sent mqtt
         Update_Log("system", "all values reset");
         actionFlag = 0; // to prevent repetition
-        ZBhardReset(); // reset the zigbeemodule
-        healthCheck(); // this increases the resetcounter so we decrease it
-        resetCounter--; // so that this reset is not counted
+        //ZBhardReset(); // reset the zigbeemodule
+        //healthCheck(); // this increases the resetcounter so we decrease it
+        //resetCounter--; // so that this reset is not counted
        }
   }
   
@@ -559,7 +580,7 @@ EEPROM.commit();
 
         for (size_t offset = 0; offset < cfgSize; offset += SPI_FLASH_SEC_SIZE) {
             if (!ESP.flashEraseSector((cfgAddr + offset) / SPI_FLASH_SEC_SIZE)) {
-                Serial.println("erase flash fail");
+                Serial.println(F("erase flash fail"));
             }
         }
         interrupts();

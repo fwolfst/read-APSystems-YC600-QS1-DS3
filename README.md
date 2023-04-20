@@ -5,7 +5,14 @@
 This project is a fork of `patience4711` awesome
 [read-APSystems-YC600-QS1-DS3](https://github.com/patience4711/read-APSystems-YC600-QS1-DS3).
 
-It compiles under Linux.
+It compiles under Linux with Arduino IDE 2.0.4. Check out like
+
+```bash
+  git clone https://github.com/fwolfst/read-APSystems-YC600-QS1-DS3 ESP-ECU
+```
+
+for the sketch to load and compile painlessly (well, you need to add a bag full
+of libraries).
 
 ### Changes made (see commit history)
 

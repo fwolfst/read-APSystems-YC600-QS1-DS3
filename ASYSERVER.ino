@@ -72,8 +72,8 @@ server.on("/CONSOLE", HTTP_GET, [](AsyncWebServerRequest *request){
 //                                     homepage
 // ***********************************************************************************
 server.on("/SW=BACK", HTTP_GET, [](AsyncWebServerRequest *request) {
-    loginBoth(request, "both");
-    //loginBoth(request, "both");
+    loginAny(request);
+    //loginAny(request);
 //    zendPageHome();
 //    request->send(200, "text/html", toSend);
 //Serial.println("de requestUrl = " + requestUrl);
@@ -83,13 +83,13 @@ request->redirect( requestUrl );
 });
 
 server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-    loginBoth(request, "both");
+    loginAny(request);
     //sendHomepage();
     DebugPrintln("send Homepage");
     request->send_P(200, "text/html", ECU_HOMEPAGE);
 });
 //server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-//    loginBoth(request, "both");
+//    loginAny(request);
 //    //sendHomepage();
 //    respond (request);   
 //    DebugPrintln("send Homepage");
@@ -116,7 +116,7 @@ server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request) {
 });
 
 server.on("/MENU", HTTP_GET, [](AsyncWebServerRequest *request) {
-loginBoth(request, "admin");
+loginAdmin(request);
 //toSend = FPSTR(HTML_HEAD);
 //toSend += FPSTR(MENUPAGE);
 //request->send(200, "text/html", toSend);
@@ -127,7 +127,7 @@ request->send_P(200, "text/html", MENUPAGE);
 //                                   basisconfig
 // ***********************************************************************************
 server.on("/BASISCONFIG", HTTP_GET, [](AsyncWebServerRequest *request) {
-loginBoth(request, "admin");
+loginAdmin(request);
 requestUrl = request->url();// remember this to come back after reboot
 zendPageBasis();
 request->send(200, "text/html", toSend);
@@ -140,7 +140,7 @@ request->redirect( requestUrl );
 });
 
 server.on("/IPCONFIG", HTTP_GET, [](AsyncWebServerRequest *request) {
-loginBoth(request, "admin");
+loginAdmin(request);
 zendPageIPconfig();
 request->send(200, "text/html", toSend);
 });
@@ -150,7 +150,7 @@ handleIPconfig(request);
 });
 
 server.on("/MQTT", HTTP_GET, [](AsyncWebServerRequest *request) {
-loginBoth(request, "admin");
+loginAdmin(request);
 requestUrl = request->url();
 zendPageMQTTconfig();
 request->send(200, "text/html", toSend);
@@ -162,7 +162,7 @@ request->redirect( requestUrl );
 });
 
 server.on("/GEOCONFIG", HTTP_GET, [](AsyncWebServerRequest *request) {
-loginBoth(request, "admin");
+loginAdmin(request);
 requestUrl = request->url();
 zendPageGEOconfig();
 request->send(200, "text/html", toSend);
@@ -176,7 +176,7 @@ request->redirect( requestUrl );
 
 server.on("/REBOOT", HTTP_GET, [](AsyncWebServerRequest *request) {
   //DebugPrintln(F("reboot requested"));
-  loginBoth(request, "admin");
+  loginAdmin(request);
   actionFlag = 10;
   confirm(); 
   //request->send(200, "text/plain", "ok going to reboot, close this page");
@@ -184,7 +184,7 @@ server.on("/REBOOT", HTTP_GET, [](AsyncWebServerRequest *request) {
 });
 
 server.on("/STARTAP", HTTP_GET, [](AsyncWebServerRequest *request) {
-        loginBoth(request, "admin");
+        loginAdmin(request);
         //DebugPrintln("We gaan de gegevens wissen");
         String toSend = F("<!DOCTYPE html><html><head><script type='text/javascript'>setTimeout(function(){ window.location.href='/SW=BACK'; }, 5000 ); </script>");
         toSend += F("</head><body><center><h2>OK the accesspoint is started.</h2>Wait unil the led goes on.<br><br>Then go to the wifi-settings on your pc/phone/tablet and connect to ESP-");
@@ -196,25 +196,25 @@ server.on("/STARTAP", HTTP_GET, [](AsyncWebServerRequest *request) {
 
 server.on("/INFOPAGE", HTTP_GET, [](AsyncWebServerRequest *request) {
 //Serial.println(F("/INFOPAGE requested"));
-loginBoth(request, "both");
+loginAny(request);
 handleInfo(request);
 });
 
 server.on("/TEST", HTTP_GET, [](AsyncWebServerRequest *request) {
-loginBoth(request, "admin");
+loginAdmin(request);
 actionFlag = 44;
 request->send( 200, "text/html", "<center><br><br><h3>checking zigbee.. please wait a minute.<br>Then you can find the result in the log.<br><br><a href=\'/LOGPAGE\'>click here</a></h3>" );
 });
 
 server.on("/LOGPAGE", HTTP_GET, [](AsyncWebServerRequest *request) {
-loginBoth(request, "both");
+loginAny(request);
 requestUrl = request->url();
 zendPageLog();
 request->send( 200, "text/html", toSend );
 });
 
 server.on("/CLEAR_LOG", HTTP_GET, [](AsyncWebServerRequest *request) {
-  loginBoth(request, "admin");
+  loginAdmin(request);
   //requestUrl = request->url();
   DebugPrintln(F("clear log requested"));
   Clear_Log();
@@ -224,7 +224,7 @@ server.on("/CLEAR_LOG", HTTP_GET, [](AsyncWebServerRequest *request) {
 });
 
 server.on("/MQTT_TEST", HTTP_GET, [](AsyncWebServerRequest *request) {
-loginBoth(request, "admin");
+loginAdmin(request);
 
 String Mqtt_send = Mqtt_outTopic;
 if(Mqtt_outTopic.endsWith("/")) {
@@ -244,7 +244,7 @@ request->send( 200, "text/plain", toSend  );
 //                    inverters
 // ******************************************************************
 server.on("/PAIR", HTTP_GET, [](AsyncWebServerRequest *request) {
-  loginBoth(request, "admin");
+  loginAdmin(request);
   requestUrl = request->url();
   //DebugPrintln(F("pairing requested"));
   handlePair(request);

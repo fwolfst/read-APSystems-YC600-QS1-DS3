@@ -60,8 +60,6 @@ void start_portal() {
   yield();
   if (tryConnectFlag) { // there are credentials provided
       wifiConnect();
-   // we try to connect once so make the  flag false
-   // tryConnectFlag = false; is done in wifiConnect   
   }
 //  
 //  if(Serial.available()) { // make the serial monitor work

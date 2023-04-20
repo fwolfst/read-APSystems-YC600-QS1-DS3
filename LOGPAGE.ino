@@ -129,9 +129,6 @@ toSend.replace("<cont>", content);
 void Clear_Log() {
     //Serial.println("clearing the log");
     if(Log_CurrentEvent != 0) {
-      String nu="";
-      String what="";
-      String message="";
             for (int i=0; i <= Log_MaxEvents; i++) {
             Update_Log("clear", "");
             }

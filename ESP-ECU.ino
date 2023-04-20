@@ -192,6 +192,7 @@ logEvent Log_EventList[Log_MaxEvents];  // To stock in memory the last x events 
 
 WiFiClient My_WifiClient ;
 PubSubClient MQTT_Client ( My_WifiClient ) ;
+int domIdx = 123;
 
 // *****************************************************************************
 // *                              SETUP

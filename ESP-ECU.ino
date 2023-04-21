@@ -275,7 +275,12 @@ void setup() {
 #ifdef TEST
 t_saved[0] = 36587;
 zigbeeUp = 1;
-force_values(); // now we have values for all inverters
+// force some values
+for(int z=0; z<inverterCount; z++) { // for all inverters
+  int q=2; // count of panels 
+  if(Inv_Prop[z].invType == 1) q = 4;
+  polled[z] = true;
+}
 #endif 
 
 

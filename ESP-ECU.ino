@@ -1,14 +1,5 @@
-/* implementation of the improvements from felix:
- *  the uppercase function in crc snd len
- *  the bool coordinatorinit changed in void
- *  the bool connectWifi canged in void
- *  the returns in bool file_open_for_read rearranged
- *  crc addition only in sendZigbee
- *  the original bin filesize = 480kb
- *  after using implementation of zigbee.h and appendcrc in sendZigbee 479 
- */
 // arduino version 2.7.1 
-#define VERSION  "ESP-ECU_v9_9a"
+#define VERSION "ESP-ECU_v9_9a"
 
 #include <TimeLib.h>
 #include <time.h>

@@ -215,12 +215,9 @@ request->send( 200, "text/html", toSend );
 
 server.on("/CLEAR_LOG", HTTP_GET, [](AsyncWebServerRequest *request) {
   loginAdmin(request);
-  //requestUrl = request->url();
   DebugPrintln(F("clear log requested"));
   Clear_Log();
-  //toSend = FPSTR(CONFIRM);
-  //request->send(200, "text/html", toSend); //send the html code to the client  
-  request->redirect( requestUrl ); // refreshes the page
+  request->redirect( requestUrl ); // just refresh page
 });
 
 server.on("/MQTT_TEST", HTTP_GET, [](AsyncWebServerRequest *request) {

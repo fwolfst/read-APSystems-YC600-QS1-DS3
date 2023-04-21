@@ -1,6 +1,12 @@
-// ******************************************************************
-//                    decode polling answer
-// ******************************************************************
+#define POLLING_SUCCESS                      0
+
+#define POLLING_ERR_EMPTY_INMESSAGE         50
+#define POLLING_ERR_AF_DATA_REQUEST_FAILED  10
+#define POLLING_ERR_AF_DATA_CONFIRM_MISSING 11
+#define POLLING_ERR_AF_INCOMING_MSG_MISSING 13
+#define POLLING_ERR_INVALID_DATA            15
+
+/** Decode polling answer of inverter of index `which` */
 int decodePollAnswer(int which)
 {
 //Serial.println("1 decodePollAnswer which = " + String(which) );
@@ -18,7 +24,7 @@ int decodePollAnswer(int which)
   int ts = 0;
   bool resetFlag = false;
   float total_pwr = 0;
-if(!*inMessage) return 50; // if empty we return with erroCode 50
+if(!*inMessage) return POLLING_ERR_EMPTY_INMESSAGE; // if empty we return with erroCode 50
 
     strncpy(messageToDecode, inMessage, strlen(inMessage));
     //delayMicroseconds(250); //give memset a little bit of time to empty all the buffers
@@ -32,12 +38,12 @@ if(!*inMessage) return 50; // if empty we return with erroCode 50
     if(strstr(messageToDecode,  "FE01640100") == NULL) // answer to AF_DATA_REQUEST 00=success
     {
      if(diagNose) ws.textAll("AF_DATA_REQUEST failed");
-     return 10;    
+     return POLLING_ERR_AF_DATA_REQUEST_FAILED;    
     } else
     if (strstr(messageToDecode, "FE03448000") == NULL) //  AF_DATA_CONFIRM the 00 byte = success
     {
       if(diagNose) ws.textAll("no AF_DATA_CONFIRM");
-      return 11;
+      return POLLING_ERR_AF_DATA_CONFIRM_MISSING;
     } else
     if (strstr(messageToDecode, "FE0345C4") == NULL) //  ZDO_SRC_RTG_IND
     {
@@ -46,15 +52,15 @@ if(!*inMessage) return 50; // if empty we return with erroCode 50
     } else 
     if (strstr(messageToDecode, "4481") == NULL)
     {
-      if(diagNose) ws.textAll("no  AF_INCOMING_MSG");
-      return 13;
+      if(diagNose) ws.textAll("no AF_INCOMING_MSG");
+      return POLLING_ERR_AF_INCOMING_MSG_MISSING;
     }
    
    
     if (strlen(messageToDecode) < 223) // this message is not valid inverter data
     {
        if(diagNose) ws.textAll("ignoring, received " + String(messageToDecode) );
-       return 15;
+       return POLLING_ERR_INVALID_DATA;
     }    
         
     //shorten the message by removing everything before 4481
@@ -322,7 +328,7 @@ We keep stacking the increases so we have also en_inc_total
      ws.textAll("total energy stacked in Inv_Data[which].en_total: " + String(Inv_Data[which].en_total) + "\n");
      }
 #endif
-    return 0;
+    return POLLING_SUCCESS;
 }       
 
       

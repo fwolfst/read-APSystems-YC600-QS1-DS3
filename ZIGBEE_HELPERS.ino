@@ -17,7 +17,7 @@ void sendZigbee(char printString[])
          // we use 2 characters to make a byte
             strncpy(bufferSend, printString + i * 2, 2); 
             delayMicroseconds(250);                     //give memset a little bit of time to empty all the buffers
-            Serial.write(StrToHex(bufferSend));        //turn the two chars to a byte and send this
+            Serial.write(HexStrToInt(bufferSend));        //turn the two chars to a byte and send this
         }
             Serial.flush(); //wait till the full command was sent
     }
@@ -116,7 +116,7 @@ char bufferCRC_2[254] = {0};
     {
         strncpy(bufferCRC_2, Command + i * 2, 2); //use every iteration the next two chars starting with char 2+3
         delayMicroseconds(250);                          //give memset a little bit of time to empty all the buffers
-        sprintf(bufferCRC, "%02X", StrToHex(bufferCRC) ^ StrToHex(bufferCRC_2));
+        sprintf(bufferCRC, "%02X", HexStrToInt(bufferCRC) ^ HexStrToInt(bufferCRC_2));
         delayMicroseconds(250); //give memset a little bit of time to empty all the buffers
     }
 
@@ -126,10 +126,13 @@ char bufferCRC_2[254] = {0};
 //                               data converters
 // **************************************************************************
 
-// convert a char to Hex ******************************************************
-int StrToHex(char str[])
+/**
+ * Return the integer that is encoded by a hex string.
+ * E.g. '0x11' -> 17, '2A' -> 42).
+ */
+int HexStrToInt(char str[])
 {
-    return (int)strtol(str, 0, 16);
+ return (int) strtol(str, 0, 16);
 }
 
 // reverse the ecu id **********************************************************

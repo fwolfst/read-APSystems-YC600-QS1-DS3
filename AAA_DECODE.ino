@@ -353,7 +353,7 @@ yield();
     delayMicroseconds(250); //give memset a little bit of time to empty all the buffers
 
     yield();
-    return (valueSlope * (float)StrToHex(tempMsgBuffer)) + valueOffset;
+    return (valueSlope * (float)HexStrToInt(tempMsgBuffer)) + valueOffset;
 }
 
 // ************************************************************************************

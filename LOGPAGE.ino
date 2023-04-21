@@ -82,7 +82,13 @@ toSend.replace("!@@!", cont);
 
 //DebugPrintln(" zendlogpage :build eventlist");  
   byte Log_Count = 0;
-  Log_MaxReached ? Log_Count = Log_MaxEvents : Log_Count = Log_CurrentEvent;  // determine if the max number of event is already reached
+
+  // determine if the max number of event is already reached
+  if Log_MaxReached {
+    Log_Count = Log_MaxEvents;
+  } else {
+    Log_Count = Log_CurrentEvent;
+  }
 
   int j = Log_CurrentEvent;
   String content = "";
@@ -126,6 +132,7 @@ toSend.replace("<cont>", content);
             Log_MaxReached = true;
         }
 }
+
 void Clear_Log() {
     //Serial.println("clearing the log");
     if(Log_CurrentEvent != 0) {

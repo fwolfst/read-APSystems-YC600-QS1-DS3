@@ -48,8 +48,7 @@ bool pairing(int which) {
     // we call this function when coordinator is up for pairing
     
     char pairCmd[254]={0};
-    char ecu_id_reverse[13]; //= {ECU_REVERSE()}; // 
-    ECU_REVERSE().toCharArray(ecu_id_reverse, 13);
+
     //char short_ecu_id_reverse
     char infix[] = "FFFF10FFFF";
     char outfix[] = "10FFFF";
@@ -93,7 +92,7 @@ bool pairing(int which) {
     //now add the "FFF10FFF"
     strncat( pairBaseCommand[2], infix, sizeof(infix) );
     //now add ecu_id_reverse 
-    strncat(pairBaseCommand[2], ecu_id_reverse, sizeof(ecu_id_reverse));
+    strncat(pairBaseCommand[2], ECU_ID_REVERSE, sizeof(ECU_ID_REVERSE));
     // Serial.println("Cmd 2 constructed = " + String(pairBaseCommand[2]));  // ok
 
     // now build command 3 this is prefix + "0C0201000F0600"  + inv serial,
@@ -109,10 +108,10 @@ bool pairing(int which) {
     strncat(pairBaseCommand[4], ECU_ID + 2, 2); // D8A3011B9780 must be A3D8
     strncat(pairBaseCommand[4], ECU_ID, 2);
     strncat(pairBaseCommand[4], outfix, sizeof(outfix) );
-    strncat(pairBaseCommand[4], ecu_id_reverse, sizeof(ecu_id_reverse));
+    strncat(pairBaseCommand[4], ECU_ID_REVERSE, sizeof(ECU_ID_REVERSE));
 
     // now build command 5 this is prefix  + "010103000F0600" + ecu_id_reverse,
-    strncat(pairBaseCommand[5], ecu_id_reverse, sizeof(ecu_id_reverse));
+    strncat(pairBaseCommand[5], ECU_ID_REVERSE, sizeof(ECU_ID_REVERSE));
 
     // now send these  5 commands
     // the first command is the healtcheck so we could do checkZigbeeRadio and if this failes break

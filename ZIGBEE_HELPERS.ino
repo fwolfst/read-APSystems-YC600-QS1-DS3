@@ -135,19 +135,18 @@ int HexStrToInt(char str[])
  return (int) strtol(str, 0, 16);
 }
 
-// reverse the ecu id **********************************************************
-String ECU_REVERSE() {
-String ecu_id = String(ECU_ID);
-String reverse = ecu_id.substring(10,12) + ecu_id.substring(8,10) + ecu_id.substring(6,8) + ecu_id.substring(4,6) + ecu_id.substring(2,4) + ecu_id.substring(0,2);
-return reverse;
+/** 'Reverse' the ecu id in global ECU_ID_REVERSE (AB12 -> 12AB) */
+void store_reversed_ecu_id(char * given_ecu_id) {
+  String ecu_id = String(given_ecu_id);
+  String reverse = ecu_id.substring(10,12) + ecu_id.substring(8,10) + ecu_id.substring(6,8) + ecu_id.substring(4,6) + ecu_id.substring(2,4) + ecu_id.substring(0,2);
+  reverse.toCharArray(ECU_ID_REVERSE, sizeof(ECU_ID_REVERSE));
 }
 
 // ******************************************************************************
 //                   reboot an inverter
 // *******************************************************************************
 void inverterReset(int which) {
-char ecu_id_reverse[13];  
-ECU_REVERSE().toCharArray(ecu_id_reverse, 13);
+
 char inv_id[7];
 strncpy(inv_id, Inv_Prop[which].invID, strlen(Inv_Prop[which].invID));
 char resetCmd[80];
@@ -161,7 +160,7 @@ strncpy( resetCmd, command[0], sizeof(command[0]) );
 strncat( resetCmd, inv_id + 4, 2 ); // ad the 2nd byte of inv_id
 strncat( resetCmd, inv_id + 2, 2 );     // ad the 1st byte of inv_id  
 strncat( resetCmd, command[1], sizeof(command[1]) );
-strncat( resetCmd, ecu_id_reverse, sizeof(ecu_id_reverse) );
+strncat( resetCmd, ECU_ID_REVERSE, sizeof(ECU_ID_REVERSE) );
 strncat( resetCmd, command[2], sizeof(command[2]) );
 ws.textAll("the resetCmd = " + String(resetCmd));
 

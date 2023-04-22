@@ -57,8 +57,6 @@ int checkCoordinator() {
 // this is basicly the 2700 command  
 // the answer can mean that the coordinator is up, not yet started or no answer
 // we evaluate that
-    char ecu_id_reverse[13];
-    ECU_REVERSE().toCharArray(ecu_id_reverse, 13);
     char * tail;
 
     // the response = 67 00, status 1 bt, IEEEAddr 8bt, ShortAddr 2bt, DeviceType 1bt, Device State 1bt
@@ -99,10 +97,10 @@ int checkCoordinator() {
   //    received : FE0E670000FFFF80971B01A3D600000709001F when ok
   
       //check if ecu_id_reverse is in the string, then split it there + 2 bytes
-      if( strstr(inMessage, ecu_id_reverse) )
+      if( strstr(inMessage, ECU_ID_REVERSE) )
       {
           //ws.textAll("found ecu id");
-          tail = split(inMessage, ecu_id_reverse + 4);
+          tail = split(inMessage, ECU_ID_REVERSE + 4);
           //ws.textAll("tail=" + String(tail)); 
           //Serial.println("\nhealth received : " + String(inMessage) );
           if( strstr(tail, "0709") ) 

@@ -133,6 +133,7 @@ inverterdata Inv_Data[YC600_MAX_NUMBER_OF_INVERTERS];
  int inverterKeuze=0;
  int inverterCount=0;
  char ECU_ID[13] = "D8A3011B9780";
+ char ECU_ID_REVERSE[13] = "80971B01A3D8";
 
  String requestUrl = ""; // to remember from which webpage we came  
 

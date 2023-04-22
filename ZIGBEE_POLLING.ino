@@ -7,12 +7,10 @@ void polling(int which) {
     }
     if(diagNose) ws.textAll("polling"); //
     char pollCommand[67] = {0};
-    char ecu_id_reverse[13];
-    ECU_REVERSE().toCharArray(ecu_id_reverse, 13);    
-
 
 //    if(diagNose) ws.textAll("zb send poll cmd inverter " + String(which) + "  cmd:" + String(pollCommand));   
-      snprintf(pollCommand, sizeof(pollCommand), "1D2401%.2s%.2s1414060001000F13%sFBFB06BB000000000000C1FEFE", Inv_Prop[which].invID + 4, Inv_Prop[which].invID + 2, ecu_id_reverse);
+      snprintf(pollCommand, sizeof(pollCommand),
+"1D2401%.2s%.2s1414060001000F13%sFBFB06BB000000000000C1FEFE", Inv_Prop[which].invID + 4, Inv_Prop[which].invID + 2, ECU_ID_REVERSE);
      //add checksum
      //strcpy(pollCommand, strncat(pollCommand, checkSum(pollCommand), sizeof(pollCommand) + sizeof(checkSum(pollCommand))));
      //APPEND_CRC(initCmd);

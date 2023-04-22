@@ -71,6 +71,7 @@ void zendPageBasis() {
 void handleBasisconfig(AsyncWebServerRequest *request) { // form action = handleConfigsave
 // verzamelen van de serverargumenten   
    strcpy(ECU_ID, request->arg("ecuid").c_str());
+   store_reversed_ecu_id(ECU_ID);
    strcpy(userPwd, request->arg("pw1").c_str());
 //   pollRes = request->arg("pr").toInt();
 //   hc_IDX = request->arg("hcidx").toInt();

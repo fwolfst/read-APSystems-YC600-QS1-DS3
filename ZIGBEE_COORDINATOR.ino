@@ -51,8 +51,6 @@ yield();
 //79: Finished. Heap=26712
 //now we can pair if we want to or else an extra command for retrieving data
 
-  char ecu_id_reverse[13]; //= {ECU_REVERSE()};
-  ECU_REVERSE().toCharArray(ecu_id_reverse, 13);
   char initCmd[254]={0};
   
   
@@ -76,7 +74,7 @@ yield();
   // construct some of the commands
   // ***************************** command 2 ********************************************
   // command 2 this is 26050108FFFF we add ecu_id reversed
-  strncat(initBaseCommand[2], ecu_id_reverse, sizeof(ecu_id_reverse)); 
+  strncat(initBaseCommand[2], ECU_ID_REVERSE, sizeof(ECU_ID_REVERSE));
   delayMicroseconds(250);
   //Serial.println("initCmd 2 constructed = " + String(initBaseCommand[2]));  // ok
   
@@ -120,8 +118,6 @@ yield();
 // **************************************************************************************
 void sendNO() {
     char initCmd[254] ={0} ;   //  we have to send the 10th command
-    char ecu_id_reverse[13]; //= {ECU_REVERSE()};
-    ECU_REVERSE().toCharArray(ecu_id_reverse, 13);
 
     char lastCmd[][100] = {
     "2401FFFF1414060001000F1E",
@@ -130,7 +126,7 @@ void sendNO() {
     //Serial.println("free heap after lastCmd : " + String(ESP.getFreeHeap()));
     //// ***************************** command 9 ********************************************
     //// now send command 9 this is "2401FFFF1414060001000F1E", + ecu_id_reverse + FBFB1100000D6030FBD3000000000000000004010281FEFE"
-    strncat(lastCmd[0], ecu_id_reverse, sizeof(ecu_id_reverse));
+    strncat(lastCmd[0], ECU_ID_REVERSE, sizeof(ECU_ID_REVERSE));
     //Serial.println("initCmd 9 after ecu_reverse = " + String(initCmd));
     strncat(lastCmd[0], lastCmd[1], sizeof(lastCmd[1]));
     delayMicroseconds(250);

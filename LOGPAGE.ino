@@ -84,7 +84,7 @@ toSend.replace("!@@!", cont);
   byte Log_Count = 0;
 
   // determine if the max number of event is already reached
-  if Log_MaxReached {
+  if(Log_MaxReached) {
     Log_Count = Log_MaxEvents;
   } else {
     Log_Count = Log_CurrentEvent;
